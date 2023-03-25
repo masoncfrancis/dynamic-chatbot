@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 import openai
 import json
 import mysql.connector
@@ -15,20 +15,28 @@ def hello_world():  # put application's code here
 @app.route('/dynamic-chatbot', methods=['GET', 'POST'])
 def dynamic_chatbot():
 
+    #get from phone number
+    fromNumFile = open('phonenumbers.json')
+    fromNumber = json.load(fromNumFile)["from"]
+    fromNumFile.close()
+
+    # get twilio auth info, prep twilio client
     twilioFile = open('twilioAuth.json')
     twilioInfo = json.load(twilioFile)
     twilioFile.close()
-
     twilioClient = Client(twilioInfo["accountSid"], twilioInfo["authToken"])
 
+    # get openai auth info
     openAiFile = open('openaiauth.json')
     openai.api_key =  json.load(openAiFile)["key"]
     openAiFile.close()
 
+    # get db config and auth info
     dbInfoFile = open('db.json')
     dbInfo = json.load(dbInfoFile)
     dbInfoFile.close()
 
+    #create db connection and cursor
     dbConn = mysql.connector.connect(
         host=dbInfo['address'],
         user=dbInfo['user'],
@@ -36,7 +44,8 @@ def dynamic_chatbot():
     )
     dbCursor = dbConn.cursor()
 
-    phoneNumber = "+13135551234"
+    phoneNumber = request.values.get('From', None)
+    userInput = request.values.get('Body', None)
 
     getQuery = f"SELECT * FROM rejection.chatbot_settings where phoneNumber = '{phoneNumber}'"
     dbCursor.execute(getQuery)
@@ -51,8 +60,6 @@ def dynamic_chatbot():
         botPerson = getResult[2]
     chatMessages = [{"role": "system", "content": f"You are {botPerson}. You should respond to all messages in the speaking style of {botPerson}"}]
 
-    userInput = input("Enter a message to send: ")
-
     # Check for command
     if userInput[0:1] == "#":
         if userInput[1:].split()[0] == "changeperson":
@@ -60,6 +67,7 @@ def dynamic_chatbot():
             updateQuery = f"UPDATE rejection.chatbot_settings SET chatPerson = '{botPerson}' where phoneNumber = {phoneNumber}"
             dbCursor.execute(updateQuery)
             dbConn.commit()
+
 
     else:
         chatMessages.append({"role": "user", "content": userInput})
