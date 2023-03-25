@@ -26,7 +26,7 @@ def call_process():
     twilioClient = Client(twilioInfo["accountSid"], twilioInfo["authToken"])
 
     userInput = request.values.get('userInput', None)
-    chatMessages = [{"role": "system", "content": "You are a friendly assistant named Angie"}]
+    chatMessages = [{"role": "system", "content": "You are a friendly AI assistant named Angie"}]
 
     chatMessages.append({"role": "user", "content": userInput})
     response = openai.ChatCompletion.create(
@@ -78,7 +78,7 @@ def dynamic_chatbot():
     dbCursor.execute(getQuery)
 
     getResult = dbCursor.fetchone()
-    botPerson = "An assistant"
+    botPerson = "An AI assistant named Angie"
     if getResult == None:
         createQuery = "INSERT INTO rejection.chatbot_settings (phoneNumber, chatPerson) VALUES (%s, %s)"
         dbCursor.execute(createQuery, (phoneNumber, botPerson))
