@@ -11,6 +11,8 @@ I used these technologies:
 * Twilio API
 * OpenAI's ChatGPT API
 * MySQL Server on Microsoft Azure Cloud
+* Remote Server in Tooele
+* Used Ngrok tunnel to expose server to internet securely
 
 ## Demo: 
 
