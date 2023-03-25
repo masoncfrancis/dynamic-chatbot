@@ -101,7 +101,18 @@ def dynamic_chatbot():
                 from_=fromNumber,
                 to=phoneNumber
             )
+        elif userInput[1:].split()[0] == "default":
+            botPerson = "An AI assistant named Angie"
+            updateQuery = f"UPDATE rejection.chatbot_settings SET chatPerson = '{botPerson}' where phoneNumber = {phoneNumber}"
+            dbCursor.execute(updateQuery)
+            dbConn.commit()
 
+            # text user confirmation
+            confirmMsg = twilioClient.messages.create(
+                body=f"Your chatbot person was successfully changed to {botPerson}",
+                from_=fromNumber,
+                to=phoneNumber
+            )
 
     else:
         chatMessages.append({"role": "user", "content": userInput})
