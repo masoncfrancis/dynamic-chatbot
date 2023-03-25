@@ -1,6 +1,18 @@
 # Video Script
 
+## Technology
 
+Talk about how this chatbot would make exposure AI possible for young people who might not have access to smartphones. 
+I didn't have a smartphone in high school so I can relate.
+
+I used these technologies:
+* Python
+* Flask
+* Twilio API
+* OpenAI's ChatGPT API
+* MySQL Server on Microsoft Azure Cloud
+
+## Demo: 
 
 0. Text asking who the assistant is
 1. Text asking about NICE Systems
@@ -13,3 +25,8 @@
 8. Set to default
 9. Call and ask about Lucid, the software company
 10. Ask about the Space Dynamics Laboratory at USU
+
+## Learning
+
+While I was somewhat familiar with some areas of this project, I had to learn how to use the ChatGPT API. This is also my first 
+time using Text to Speech in a project, especially in a call. 
