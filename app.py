@@ -8,5 +8,9 @@ def hello_world():  # put application's code here
     return 'Hello World!'
 
 
+@app.route('/dynamic-chatbot')
+def dynamic_chatbot():
+    return "yee"
+
 if __name__ == '__main__':
     app.run()
