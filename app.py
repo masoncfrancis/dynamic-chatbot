@@ -68,6 +68,13 @@ def dynamic_chatbot():
             dbCursor.execute(updateQuery)
             dbConn.commit()
 
+            # text user confirmation
+            confirmMsg = twilioClient.messages.create(
+                body=f"Your chatbot person was successfully changed to {botPerson}",
+                from_=fromNumber,
+                to=phoneNumber
+            )
+
 
     else:
         chatMessages.append({"role": "user", "content": userInput})
@@ -77,7 +84,12 @@ def dynamic_chatbot():
         )
         chatMessages.append({"role": response['choices'][0]['message']['role'], "content": response['choices'][0]['message']['content']})
 
-        print("Response: " + response['choices'][0]['message']['content'])
+        responseMsg = twilioClient.messages.create(
+                body=response['choices'][0]['message']['content'],
+                from_=fromNumber,
+                to=phoneNumber
+            )
+        
 
 
 if __name__ == '__main__':
