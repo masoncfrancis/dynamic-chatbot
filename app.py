@@ -97,7 +97,7 @@ def dynamic_chatbot():
 
             # text user confirmation
             confirmMsg = twilioClient.messages.create(
-                body=f"Your chatbot person was successfully changed to {botPerson}",
+                body=f"Your chatbot personality was successfully changed to {botPerson}",
                 from_=fromNumber,
                 to=phoneNumber
             )
@@ -109,7 +109,7 @@ def dynamic_chatbot():
 
             # text user confirmation
             confirmMsg = twilioClient.messages.create(
-                body=f"Your chatbot person was successfully changed to {botPerson}",
+                body=f"Your chatbot personality was successfully changed to {botPerson}",
                 from_=fromNumber,
                 to=phoneNumber
             )
