@@ -78,7 +78,7 @@ def dynamic_chatbot():
     dbCursor.execute(getQuery)
 
     getResult = dbCursor.fetchone()
-    botPerson = "Donald Trump"
+    botPerson = "An assistant"
     if getResult == None:
         createQuery = "INSERT INTO rejection.chatbot_settings (phoneNumber, chatPerson) VALUES (%s, %s)"
         dbCursor.execute(createQuery, (phoneNumber, botPerson))
