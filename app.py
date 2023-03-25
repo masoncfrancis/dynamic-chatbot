@@ -21,7 +21,7 @@ def dynamic_chatbot():
     fromNumFile.close()
 
     # get twilio auth info, prep twilio client
-    twilioFile = open('twilioAuth.json')
+    twilioFile = open('twilioauth.json')
     twilioInfo = json.load(twilioFile)
     twilioFile.close()
     twilioClient = Client(twilioInfo["accountSid"], twilioInfo["authToken"])
@@ -89,6 +89,7 @@ def dynamic_chatbot():
                 from_=fromNumber,
                 to=phoneNumber
             )
+    return "yeet"
         
 
 
