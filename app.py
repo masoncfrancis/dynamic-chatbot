@@ -11,6 +11,33 @@ app = Flask(__name__)
 def hello_world():  # put application's code here
     return 'Hello World!'
 
+@app.route('/call', methods=['GET', 'POST'])
+def call_process():
+
+    # get openai auth info
+    openAiFile = open('openaiauth.json')
+    openai.api_key =  json.load(openAiFile)["key"]
+    openAiFile.close()
+
+     # get twilio auth info, prep twilio client
+    twilioFile = open('twilioauth.json')
+    twilioInfo = json.load(twilioFile)
+    twilioFile.close()
+    twilioClient = Client(twilioInfo["accountSid"], twilioInfo["authToken"])
+
+    userInput = request.values.get('userInput', None)
+    chatMessages = [{"role": "system", "content": "You are a friendly assistant named Angie"}]
+
+    chatMessages.append({"role": "user", "content": userInput})
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=chatMessages
+    )
+    
+    return response['choices'][0]['message']['content']
+
+
+
 
 @app.route('/dynamic-chatbot', methods=['GET', 'POST'])
 def dynamic_chatbot():
