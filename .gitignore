@@ -132,5 +132,5 @@ dmypy.json
 # my stuff
 twilioauth.json
 openaiauth.json
-phonenumber.json
+phonenumbers.json
 db.json
