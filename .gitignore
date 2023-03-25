@@ -127,3 +127,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+# my stuff
+twilioauth.json
+openaiauth.json
+phonenumber.json
+db.json
